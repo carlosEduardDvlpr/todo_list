@@ -37,7 +37,7 @@ export default async function HomePage() {
     <main className="my-12 flex justify-center">
       <div className="md:min-w-[70%] min-w-[80%] space-y-3">
         <FormTask onCreateTask={createTask} />
-        <Tabs defaultValue="tasks" className="w-full">
+        <Tabs defaultValue="to" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="to">Em aberto</TabsTrigger>
             <TabsTrigger value="do">Finalizado</TabsTrigger>
