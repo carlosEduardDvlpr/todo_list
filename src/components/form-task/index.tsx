@@ -6,6 +6,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 
 const schema = z.object({
   titulo: z
@@ -42,6 +43,7 @@ export const FormTask = ({
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
     await onCreateTask({ title: data.titulo, description: data.descricao });
+    toast.success('Nova tarefa criada!');
     reset();
   };
 

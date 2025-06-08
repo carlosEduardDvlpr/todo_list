@@ -3,14 +3,24 @@ import { db } from '@/lib/prisma';
 export class DBControllers {
   // GET All Tasks
   static async getTasks() {
-    return await db.tasks.findMany();
+    try {
+      const tasks = await db.tasks.findMany();
+      return { success: true, tasks };
+    } catch (err) {
+      return { success: false, tasks: [] };
+    }
   }
 
   // Delete Task
   static async deleteTask(id: number) {
-    return await db.tasks.delete({
-      where: { id },
-    });
+    try {
+      await db.tasks.delete({
+        where: { id },
+      });
+      return { success: true };
+    } catch (err) {
+      return { success: false };
+    }
   }
 
   // Create Task

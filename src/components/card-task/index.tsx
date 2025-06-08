@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from '../ui/card';
 import { Checkbox } from '../ui/checkbox';
+import { toast } from 'sonner';
 
 interface TaskProps {
   id: number;
@@ -18,11 +19,7 @@ interface TaskProps {
   title: string | null;
 }
 
-export const CardTask = ({
-  task,
-  onDeleteTask,
-  onFinishedTask,
-}: {
+interface CardProps {
   task: TaskProps;
   onDeleteTask: (id: number) => Promise<void>;
   onFinishedTask: ({
@@ -32,19 +29,25 @@ export const CardTask = ({
     id: number;
     status: boolean;
   }) => Promise<void>;
-}) => {
+}
+
+export const CardTask = ({ task, onDeleteTask, onFinishedTask }: CardProps) => {
+  const handleDeleteTask = () => {
+    onDeleteTask(task.id);
+    toast.success('Tarefa deletada!');
+  };
+
+  const handleFinishedTask = () => {
+    onFinishedTask({ id: task.id, status: task.finished! });
+    toast.success(
+      `Tarefa marcada como ${task.finished ? 'pendente!' : 'finalizada!'}`,
+    );
+  };
+
   return (
     <Card>
       <CardContent className="px-3 gap-3 flex justify-between items-center">
-        <Checkbox
-          checked={task.finished!}
-          onClick={() =>
-            onFinishedTask({
-              id: task.id,
-              status: task.finished!,
-            })
-          }
-        />
+        <Checkbox checked={task.finished!} onClick={handleFinishedTask} />
         <CardHeader className="flex-1">
           <CardTitle className={task.finished ? 'line-through' : ''}>
             {task.title}
@@ -53,7 +56,7 @@ export const CardTask = ({
             {task.description}
           </CardDescription>
         </CardHeader>
-        <Button size="icon" onClick={async () => onDeleteTask(task.id)}>
+        <Button size="icon" onClick={handleDeleteTask}>
           <Trash2 />
         </Button>
       </CardContent>
