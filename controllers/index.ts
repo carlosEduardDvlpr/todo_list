@@ -13,14 +13,9 @@ export class DBControllers {
 
   // Delete Task
   static async deleteTask(id: number) {
-    try {
-      await db.tasks.delete({
-        where: { id },
-      });
-      return { success: true };
-    } catch (err) {
-      return { success: false };
-    }
+    return await db.tasks.delete({
+      where: { id },
+    });
   }
 
   // Create Task

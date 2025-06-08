@@ -1,6 +1,6 @@
 import { CardTask } from '@/components/card-task';
 import { FormTask } from '@/components/form-task';
-import { DBControllers } from '../../controllers';
+import { DBControllers } from '../../../controllers';
 import { revalidatePath } from 'next/cache';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
@@ -53,7 +53,7 @@ export default async function HomePage() {
 
         <Tabs defaultValue="to" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="to">Em aberto</TabsTrigger>
+            <TabsTrigger value="to">Pendente</TabsTrigger>
             <TabsTrigger value="do">Finalizado</TabsTrigger>
           </TabsList>
 
